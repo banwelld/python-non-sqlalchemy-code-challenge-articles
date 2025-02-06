@@ -1,11 +1,18 @@
-from helpers import validate_attribute
+from helpers import (
+    enforce_type,
+    enforce_min_len,
+    enforce_max_len,
+)
 
 class Article:
 
     all = []
 
     def __init__(self, author, magazine, title):
-        validate_attribute(title, str, 5, 50)
+        # ensure title within expected parameters
+        enforce_type(title, str)
+        enforce_min_len(title, 5)
+        enforce_max_len(title, 50)
         self._title = title
         self.author = author
         self.magazine = magazine
@@ -27,7 +34,8 @@ class Article:
 
     @author.setter
     def author(self, author):
-        validate_attribute(author, Author)
+        # ensure author within expected parameters
+        enforce_type(author, Author)
         self._author = author
 
     @property
@@ -36,12 +44,15 @@ class Article:
 
     @magazine.setter
     def magazine(self, magazine):
-        validate_attribute(magazine, Magazine)
+        # ensure magazine within expected parameters
+        enforce_type(magazine, Magazine)
         self._magazine = magazine
 
 class Author:
     def __init__(self, name):
-        validate_attribute(name, str, 1)
+        # ensure name within expected parameters
+        enforce_type(name, str)
+        enforce_min_len(name, 1)
         self._name = name   
 
     def __repr__(self):
@@ -78,7 +89,10 @@ class Magazine:
 
     @name.setter
     def name(self, name):
-        validate_attribute(name, str, 2, 16)
+        # ensure name within expected parameters
+        enforce_type(name, str)
+        enforce_min_len(name, 2)
+        enforce_max_len(name, 16)
         self._name = name
 
     @property
@@ -87,7 +101,9 @@ class Magazine:
 
     @category.setter
     def category(self, category):
-        validate_attribute(category, str, 1)
+        # ensure category within expected parameters
+        enforce_type(category, str)
+        enforce_min_len(category, 1)
         self._category = category
 
     def articles(self):
